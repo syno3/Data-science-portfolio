@@ -1,6 +1,12 @@
+![badge issues](https://img.shields.io/github/issues/syno3/Data-science-portfolio)
+![repo forks](https://img.shields.io/github/forks/syno3/Data-science-portfolio)
+![repo stars](https://img.shields.io/github/stars/syno3/Data-science-portfolio)
+![repo license](https://img.shields.io/github/license/syno3/Data-science-portfolio)
+
+
 ## Data-science-portfolio
-Contains all data from my analysis. The repo has been sorted out in different categories to make things easier during searching. 
-Feel free to contact me via (murimifesus09@gmail.com) incase of any questions.
+This file contains all of the data from my analysis. To make searching easier, the repo has been organized into different categories.
+If you have any questions, please contact me at (murimifesus09@gmail.com).
 
 Happy coding everyone !
 <h3><span>Prerequisites</b></h3>
