@@ -15,7 +15,6 @@ Basically python (prefferably 3.x)should be install,if you havent done this yet 
 if you arent new to linux or termux the you probably know the <code>git clone</code> command which install the script and saves it into a <code>Data-science-portflio</code> folder for those who may not know this well the pprocess is down below.
 <ul>
 <li><code>cd Data-science-portfolio</li></code>
-<li><code>python3 -m </li></code>
 </ul>
 Now you are good to go<br>
 <h3><b>License</h3></b>
