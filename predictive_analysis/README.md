@@ -1,5 +1,5 @@
 ## Predictive-analysis folder
-This folder contains all the data from predictive analysis project.Some of the machine learning models used are:
+All of the data from the predictive analysis project is housed in this folder. Among the machine learning models employed are:
 <ul>
 <li>Support Vector Machine</li>
 <li>KMean</li>
