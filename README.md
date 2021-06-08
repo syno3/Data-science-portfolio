@@ -2,6 +2,7 @@
 ![repo forks](https://img.shields.io/github/forks/syno3/Data-science-portfolio)
 ![repo stars](https://img.shields.io/github/stars/syno3/Data-science-portfolio)
 ![repo license](https://img.shields.io/github/license/syno3/Data-science-portfolio)
+![project repo](https://img.shields.io/badge/project-Trading.py-blue)
 
 
 ## Data-science-portfolio
