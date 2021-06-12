@@ -21,8 +21,19 @@ Now you are good to go<br>
 <h3><b>License</h3></b>
 This project is under the Apache license v3.0 so you are free to make any changes to it.See the license.md for more information
 
+## PROJECTS
+<ul>
+  
+  ### <li>Viralpandemic.py (Stimulating viral pandemic using python)</li>
+  ---
+  
+  ### <li><a href='https://github.com/syno3/Data-science-portfolio/tree/main/Trading.py'>Trading.py (Tesla data visualization, complete with SMA, EMA and MACD)</a></li>
+  ---
+  ![repo image](https://github.com/syno3/Data-science-portfolio/blob/main/Trading.py/trading.PNG)
+  
+</ul>
+
 ## Curriculum (lets get you started in data-science)
----
 
 ### Introduction to Data Science
 [What is Data Science](https://www.coursera.org/learn/what-is-datascience)
