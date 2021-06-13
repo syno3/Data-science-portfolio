@@ -24,7 +24,7 @@ This project is under the Apache license v3.0 so you are free to make any change
 ## PROJECTS
 <ul>
   
-  ### <li>Viralpandemic.py (Stimulating viral pandemic using python)</li>
+  ### <li><a href='https://github.com/syno3/hackingcorona'>Viralpandemic.py (Stimulating viral pandemic using python)</a></li>
   ---
   
   ### <li><a href='https://github.com/syno3/Data-science-portfolio/tree/main/Trading.py'>Trading.py (Tesla data visualization, complete with SMA, EMA and MACD)</a></li>
