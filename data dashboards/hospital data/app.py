@@ -28,7 +28,7 @@ except Exception as e:
     print(e)
     
 ##setiing the boostrap theme and adding the title
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.CYBORG])
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX])
 app.title = "Hospital analytics: Ischaemic stroke data"
 
 ##data preprocessing
@@ -47,7 +47,7 @@ empty = df.isnull().sum()
 ###creating new file with the data cleaned
 ##df.to_csv('new_hospital.csv')
 
-### defining figure to used
+### defining figures to used
 
 
 ### setting the layout for the app
@@ -55,9 +55,10 @@ empty = df.isnull().sum()
 app.layout = dbc.Container([
     ##introduction section
     html.Div([
-        html.H6('ISCHAEMIC STROKE DATA', style={'textAlign':'center', 'marginTop':'20px'}),
-        html.P('We visualize Ischaemic stroke data', style={'textAlign':'center'})
-    ]),
+        html.H6('ISCHAEMIC STROKE DATA', className="header-title"),
+        html.P('We visualize Ischaemic stroke data', className="header-description"),
+    ], className="header",
+    ),
     ##cards section
     dbc.Row([
         dbc.Col(
@@ -208,20 +209,7 @@ app.layout = dbc.Container([
 
 
 ],fluid=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### initialize callbacks
 
 ###initialize the app
 if __name__ == '__main__':

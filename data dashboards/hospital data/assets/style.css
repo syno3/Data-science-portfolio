@@ -1,0 +1,29 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Source+Sans+Pro&display=swap');
+
+.header {
+    background-color: #222222;
+    height: 288px;
+    padding: 16px 0 0 0;
+}
+.header-title {
+    color: #FFFFFF;
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 auto;
+    text-algin : center;
+    margin-top: 5rem;
+    font-size: 2rem;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.header-description {
+    color: #CFCFCF;
+    margin: 4px auto;
+    text-align: center;
+    max-width: 384px;
+    text-align: center;
+    font-size: 1rem;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
