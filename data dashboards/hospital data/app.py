@@ -205,9 +205,6 @@ app.layout = dbc.Container([
         )
     ])
 
-
-
-
 ],fluid=True)
 ### initialize callbacks
 
