@@ -136,10 +136,22 @@ app.layout = dbc.Container([
     ]),
     ## Graphs sections, line $ Bar $ scatter plot
     dbc.Row([
-        dbc.Col(),
-        dbc.Col(),
-        dbc.Col()
-
+        dbc.Col([
+            html.H4("Card title", className="card-title"),
+            dcc.Graph()
+        ],
+        style={"width": "25rem"},
+        ),
+        dbc.Col([
+            html.H4("Card title", className="card-title"),
+            dcc.Graph()
+        ]
+        ),
+        dbc.Col([
+            html.H4("Card title", className="card-title"),
+            dcc.Graph()
+        ]
+        )
     ]),
     ## Cards will use later
     dbc.Row([
@@ -195,13 +207,15 @@ app.layout = dbc.Container([
                     ),
                 ],
                 style={"width": "25rem"},
-            )
+            ),className="mb-5"
         ),
     ]),
     ##geoplot section
     dbc.Row([
-        dbc.Col(
-
+        dbc.Col([
+            html.H4("Card title", className="card-title"),
+            dcc.Graph()
+        ]
         )
     ])
 
