@@ -56,7 +56,7 @@ app.layout = dbc.Container([
     ##introduction section
     html.Div([
         html.H6('ISCHAEMIC STROKE DATA', className="header-title"),
-        html.P('We visualize Ischaemic stroke data', className="header-description"),
+        html.P('We visualize Ischaemic stroke data ❤️', className="header-description"),
     ], className="header",
     ),
     ##cards section
