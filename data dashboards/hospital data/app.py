@@ -9,7 +9,7 @@ we will visualize the following data in an interactive dashboard:
 6. Location : geoplot
 
 
- """
+"""
 
 from numpy import int32
 
@@ -38,7 +38,7 @@ app.title = "Hospital analytics: Ischaemic stroke data"
 ''' 
 we modify the data and deal with empty columns in dataframe and create a new csv file
 
- '''
+'''
 
 ##data preprocessing
 df = pd.read_csv('hospital.csv', index_col=0)
@@ -70,7 +70,7 @@ we define variables that will be used in the code:
 8.
 
 
- '''
+'''
 ### defining variables in figure to used
 counties = np.array(df['County'].unique())##counties in the data
 hospitals = np.array(df['Hospital'].unique())
@@ -78,17 +78,17 @@ sum_30_day_Risk_Adjusted_Rate = df.groupby(['Measure'])['Risk Adjusted Rate'].ag
 sum_30_day_No_of_Deaths_Readmissions = df.groupby(['Measure'])['No of Deaths/Readmissions'].agg('sum').astype(int32)#group by the unique values in column and count values in the next column
 sum_No_of_Cases = df.groupby(['Measure'])['No of Cases'].agg('sum').astype(int32)#group by the unique values in column and count values in the next column
 sum_County = df.groupby(['County'])['No of Cases'].agg('sum').astype(int32)#getting counties with the highest rates of cases
-Total_sum_No_of_Deaths_Readmissions = df['No of Deaths/Readmissions'].sum()#sum of No of Deaths/Readmissions
+Total_sum_No_of_Deaths_Readmissions = df['No of Deaths/Readmissions'].sum().astype(int32)#sum of No of Deaths/Readmissions
 Total_sum_No_of_Cases = df['No of Cases'].sum().astype(int32)#sum of No of Cases
 Total_sum_Risk_Adjusted_Rate = df['Risk Adjusted Rate'].sum().astype(int32)#sum of Risk Adjusted Rate
+Total_sum_counties_affected = df['County'].count()#sum of counties affected
 Unique_Hospital_rating = np.array(df['Hospital Ratings'].unique())#numpy list of uniwue values in the column
 Total_sum_Hospital_Ratings = df['Hospital Ratings'].value_counts()#count the number of unique values in the columns
-
 ''' 
 
 we define the layout of the app
 
- '''
+'''
 
 ### setting the layout for the app
 
@@ -101,78 +101,73 @@ app.layout = dbc.Container([
     ),
     ##cards section
     dbc.Row([
-        dbc.Col(
-            dbc.Card(
-                [
-                    dbc.CardBody(
-                        [
-                            html.H4("Card title", className="card-title"),
-                            html.Hr(),
-                            html.P(
-                                "Some quick example text to build on the card title and "
-                                "make up the bulk of the card's content.",
-                                className="card-text",
-                            ),
-                        ]
-                    )
-                ],
-                style={"width": "18rem"},
-            ),className="mb-4"
-        ),
-        dbc.Col(
-            dbc.Card(
-                [
-                    dbc.CardBody(
-                        [
-                            html.H4("Card title", className="card-title"),
-                            html.Hr(),
-                            html.P(
-                                "Some quick example text to build on the card title and "
-                                "make up the bulk of the card's content.",
-                                className="card-text",
-                            ),
-                        ]
-                    ),
-                ],
-                style={"width": "18rem"},
-            )
-        ),
-        dbc.Col(
-            dbc.Card(
-                [
-                    dbc.CardBody(
-                        [
-                            html.H4("Card title", className="card-title"),
-                            html.Hr(),
-                            html.P(
-                                "Some quick example text to build on the card title and "
-                                "make up the bulk of the card's content.",
-                                className="card-text",
-                            ),
-                        ]
-                    ),
-                ],
-                style={"width": "18rem"},
-            )
-        ),
-        dbc.Col(
-            dbc.Card(
-                [
-                    dbc.CardBody(
-                        [
-                            html.H4("Card title", className="card-title"),
-                            html.Hr(),
-                            html.P(
-                                "Some quick example text to build on the card title and "
-                                "make up the bulk of the card's content.",
-                                className="card-text",
-                            ),
-                        ]
-                    ),
-                ],
-                style={"width": "18rem"},
-            )
-        ),
+        html.H4("Sum of cases", className="header-title title-text2"),
+        html.Div([
+            dbc.Col(
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                html.H4("Total sum of cases", className="card-title title-text"),
+                                html.Hr(),
+                                html.P( '{}'.format(Total_sum_No_of_Cases), 
+                                    className="card-text number-text",
+                                ),
+                            ]
+                        )
+                    ],
+                    style={"width": "19rem"},
+                ),className="mb-4"
+            ),
+            dbc.Col(
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                html.H4("Total Risk Adjusted Rate", className="card-title title-text"),
+                                html.Hr(),
+                                html.P('{} '.format(Total_sum_Risk_Adjusted_Rate),
+                                    className="card-text number-text",
+                                ),
+                            ]
+                        ),
+                    ],
+                    style={"width": "19rem"},
+                )
+            ),
+            dbc.Col(
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                html.H4("Deaths & Readmission", className="card-title title-text"),
+                                html.Hr(),
+                                html.P('{}'.format(Total_sum_No_of_Deaths_Readmissions),
+                                    className="card-text number-text",
+                                ),
+                            ]
+                        ),
+                    ],
+                    style={"width": "19rem"},
+                )
+            ),
+            dbc.Col(
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                html.H4("No of counties affected", className="card-title title-text"),
+                                html.Hr(),
+                                html.P('{}'.format(Total_sum_counties_affected),
+                                    className="card-text number-text",
+                                ),
+                            ]
+                        ),
+                    ],
+                    style={"width": "19rem"},
+                )
+            ),
+        ], style={"display": "flex"})
     ]),
     ## Graphs sections, line $ Bar $ scatter plot
     dbc.Row([
@@ -259,9 +254,9 @@ app.layout = dbc.Container([
     ##geoplot section
     dbc.Row([
         dbc.Col([
-            html.H4("Card title", className="card-title"),
+            html.H4("Geoplot", className="card-title geoplot"),
             html.Div(
-                dcc.Graph(),className='card'
+                dcc.Graph(id="choropleth"),className='card'
             )
         ]
         )

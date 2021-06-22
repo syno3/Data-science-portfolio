@@ -13,7 +13,7 @@
     font-weight: bold;
     text-align: center;
     margin: 0 auto;
-    text-algin : center;
+    text-algin: center;
     margin-top: 5rem;
     font-size: 2rem;
     font-family: 'Noto Sans JP', sans-serif;
@@ -31,4 +31,33 @@
     margin-bottom: 24px;
     box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.18);
 }
+.number-text{
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.title-text{
+    font-size: 1rem;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.geoplot{
+    font-size: 2rem;
+    font-family: 'Source Sans Pro', sans-serif;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.center{
+    text-align: center;
+}
+.title-text2{
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #55595C;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
 
