@@ -11,6 +11,9 @@ we will visualize the following data in an interactive dashboard:
 
  """
 
+from numpy import int32
+
+
 try:
     #data analysis modules 
     import pandas as pd
@@ -31,6 +34,12 @@ except Exception as e:
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX])
 app.title = "Hospital analytics: Ischaemic stroke data"
 
+
+''' 
+we modify the data and deal with empty columns in dataframe and create a new csv file
+
+ '''
+
 ##data preprocessing
 df = pd.read_csv('hospital.csv', index_col=0)
 ##checking the null values
@@ -47,8 +56,39 @@ empty = df.isnull().sum()
 ###creating new file with the data cleaned
 ##df.to_csv('new_hospital.csv')
 
-### defining figures to used
 
+''' 
+
+we define variables that will be used in the code:
+1. list of counties in data
+2. list of hospitals in the columns
+3. group by 30-day readmission and mortality and get risk adjusted rate
+4. group by 30-day readmission and mortality and get no of cases
+5. group by 30-day readmission and mortality and get total no of deaths and readmission
+6. group by counties and get number of cases in each
+7. Calculate hospital rating and get values
+8.
+
+
+ '''
+### defining variables in figure to used
+counties = np.array(df['County'].unique())##counties in the data
+hospitals = np.array(df['Hospital'].unique())
+sum_30_day_Risk_Adjusted_Rate = df.groupby(['Measure'])['Risk Adjusted Rate'].agg('sum').astype(int32)#group by the unique values in column and count values in the next column
+sum_30_day_No_of_Deaths_Readmissions = df.groupby(['Measure'])['No of Deaths/Readmissions'].agg('sum').astype(int32)#group by the unique values in column and count values in the next column
+sum_No_of_Cases = df.groupby(['Measure'])['No of Cases'].agg('sum').astype(int32)#group by the unique values in column and count values in the next column
+sum_County = df.groupby(['County'])['No of Cases'].agg('sum').astype(int32)#getting counties with the highest rates of cases
+Total_sum_No_of_Deaths_Readmissions = df['No of Deaths/Readmissions'].sum()#sum of No of Deaths/Readmissions
+Total_sum_No_of_Cases = df['No of Cases'].sum().astype(int32)#sum of No of Cases
+Total_sum_Risk_Adjusted_Rate = df['Risk Adjusted Rate'].sum().astype(int32)#sum of Risk Adjusted Rate
+Unique_Hospital_rating = np.array(df['Hospital Ratings'].unique())#numpy list of uniwue values in the column
+Total_sum_Hospital_Ratings = df['Hospital Ratings'].value_counts()#count the number of unique values in the columns
+
+''' 
+
+we define the layout of the app
+
+ '''
 
 ### setting the layout for the app
 
@@ -138,18 +178,24 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.Col([
             html.H4("Card title", className="card-title"),
-            dcc.Graph()
+            html.Div(
+                dcc.Graph(),className='card'
+            )
         ],
         style={"width": "25rem"},
         ),
         dbc.Col([
             html.H4("Card title", className="card-title"),
-            dcc.Graph()
+            html.Div(
+                dcc.Graph(),className='card'
+            )
         ]
         ),
         dbc.Col([
             html.H4("Card title", className="card-title"),
-            dcc.Graph()
+            html.Div(
+                dcc.Graph(),className='card'
+            )
         ]
         )
     ]),
@@ -214,7 +260,9 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.Col([
             html.H4("Card title", className="card-title"),
-            dcc.Graph()
+            html.Div(
+                dcc.Graph(),className='card'
+            )
         ]
         )
     ])
