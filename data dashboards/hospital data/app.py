@@ -11,13 +11,12 @@ we will visualize the following data in an interactive dashboard:
 
 """
 
-from numpy import int32
-
 
 try:
     #data analysis modules 
     import pandas as pd
     import numpy as np
+    from numpy import int32
     #dash modules
     import dash
     import dash_core_components as dcc
@@ -78,28 +77,68 @@ sum_30_day_Risk_Adjusted_Rate = df.groupby(['Measure'])['Risk Adjusted Rate'].ag
 sum_30_day_No_of_Deaths_Readmissions = df.groupby(['Measure'])['No of Deaths/Readmissions'].agg('sum').astype(int32)#group by the unique values in column and count values in the next column
 sum_No_of_Cases = df.groupby(['Measure'])['No of Cases'].agg('sum').astype(int32)#group by the unique values in column and count values in the next column
 sum_County = df.groupby(['County'])['No of Cases'].agg('sum').astype(int32)#getting counties with the highest rates of cases
+sum_Risk_Adjusted_Rate = df.groupby(['County'])['Risk Adjusted Rate'].agg('sum').astype(int32)
+sum_No_of_Deaths_Readmissions = df.groupby(['County'])['No of Deaths/Readmissions'].agg('sum').astype(int32)
 Total_sum_No_of_Deaths_Readmissions = df['No of Deaths/Readmissions'].sum().astype(int32)#sum of No of Deaths/Readmissions
 Total_sum_No_of_Cases = df['No of Cases'].sum().astype(int32)#sum of No of Cases
 Total_sum_Risk_Adjusted_Rate = df['Risk Adjusted Rate'].sum().astype(int32)#sum of Risk Adjusted Rate
 Total_sum_counties_affected = df['County'].count()#sum of counties affected
 Unique_Hospital_rating = np.array(df['Hospital Ratings'].unique())#numpy list of uniwue values in the column
 Total_sum_Hospital_Ratings = df['Hospital Ratings'].value_counts()#count the number of unique values in the columns
+
+### temporary variables that will be removed 
+
+Alameda_sum = sum_County[0] #alameda county sum county
+Alameda_Risk_Adjusted_Rate = sum_Risk_Adjusted_Rate[0]
+Alameda_No_of_Deaths_Readmissions = sum_No_of_Deaths_Readmissions[0]
+
+
+
+
+
+
+
+
+
+
 ''' 
 
 we define the layout of the app
 
 '''
+### we define variables for the figures
 
+## geoplot fig variable
+""" 
+us_cities = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/us-cities-top-1k.csv")
+
+fig = px.scatter_mapbox(us_cities, lat="lat", lon="lon", hover_name="City", hover_data=["State", "Population"],color_discrete_sequence=["fuchsia"], zoom=3, height=300)
+fig.update_layout(
+    mapbox_style="white-bg",
+    mapbox_layers=[
+        {
+            "below": 'traces',
+            "sourcetype": "raster",
+            "sourceattribution": "United States Geological Survey",
+            "source": [
+                "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}"
+            ]
+        }
+      ])
+fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+fig.show()
+
+"""
 ### setting the layout for the app
 
 app.layout = dbc.Container([
-    ##introduction section
+    ##HEADER SECTION
     html.Div([
         html.H6('ISCHAEMIC STROKE DATA', className="header-title"),
         html.P('We visualize Ischaemic stroke data ❤️', className="header-description"),
     ], className="header",
     ),
-    ##cards section
+    ##DETAILS FOR ALL COUNTIES SECTION
     dbc.Row([
         html.H4("Sum of cases", className="header-title title-text2"),
         html.Div([
@@ -169,6 +208,7 @@ app.layout = dbc.Container([
             ),
         ], style={"display": "flex"})
     ]),
+    ### END OF DETAILS FOR ALL COUNTIES SECTION
     ## Graphs sections, line $ Bar $ scatter plot
     dbc.Row([
         dbc.Col([
@@ -194,73 +234,72 @@ app.layout = dbc.Container([
         ]
         )
     ]),
-    ## Cards will use later
+    ## RESULTS PER COUNTY
     dbc.Row([
-        dbc.Col(
-            dbc.Card(
-                [
-                    dbc.CardBody(
-                        [
-                            html.H4("Card title", className="card-title"),
-                            html.Hr(),
-                            html.P(
-                                "Some quick example text to build on the card title and "
-                                "make up the bulk of the card's content.",
-                                className="card-text",
-                            ),
-                        ]
-                    ),
-                ],
-                style={"width": "25rem"},
-            )
-        ),
-        dbc.Col(
-            dbc.Card(
-                [
-                    dbc.CardBody(
-                        [
-                            html.H4("Card title", className="card-title"),
-                            html.Hr(),
-                            html.P(
-                                "Some quick example text to build on the card title and "
-                                "make up the bulk of the card's content.",
-                                className="card-text",
-                            ),
-                        ]
-                    ),
-                ],
-                style={"width": "25rem"},
-            )
-        ),
-        dbc.Col(
-            dbc.Card(
-                [
-                    dbc.CardBody(
-                        [
-                            html.H4("Card title", className="card-title"),
-                            html.Hr(),
-                            html.P(
-                                "Some quick example text to build on the card title and "
-                                "make up the bulk of the card's content.",
-                                className="card-text",
-                            ),
-                        ]
-                    ),
-                ],
-                style={"width": "25rem"},
-            ),className="mb-5"
-        ),
+        html.H4("Cases per county", className="header-title title-text2"),
+        html.Div([
+            dbc.Col(
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                html.H4("Alameda Total Cases", className="card-title title-text"),
+                                html.Hr(),
+                                html.P( '{}'.format(Alameda_sum), 
+                                    className="card-text number-text",
+                                ),
+                            ]
+                        )
+                    ],
+                    style={"width": "25rem"},
+                ),className="mb-4"
+            ),
+            dbc.Col(
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                html.H4("Alameda Risk Ajusted Rate", className="card-title title-text"),
+                                html.Hr(),
+                                html.P('{} '.format(Alameda_Risk_Adjusted_Rate),
+                                    className="card-text number-text",
+                                ),
+                            ]
+                        ),
+                    ],
+                    style={"width": "25rem"},
+                )
+            ),
+            dbc.Col(
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                html.H4("Alameda Deaths & Readmission", className="card-title title-text"),
+                                html.Hr(),
+                                html.P('{}'.format(Alameda_No_of_Deaths_Readmissions),
+                                    className="card-text number-text",
+                                ),
+                            ]
+                        ),
+                    ],
+                    style={"width": "28rem"},
+                )
+            ),
+        ], style={"display": "flex"})
     ]),
-    ##geoplot section
+    ### END OF RESULTS PER COUNTY
+    ##GEOPLOT SECTION
     dbc.Row([
         dbc.Col([
             html.H4("Geoplot", className="card-title geoplot"),
             html.Div(
-                dcc.Graph(id="choropleth"),className='card'
+                dcc.Graph(),className='card'
             )
         ]
         )
     ])
+    ### END OF GEOPLOT SECTION
 
 ],fluid=True)
 ### initialize callbacks
