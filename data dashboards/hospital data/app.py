@@ -108,6 +108,23 @@ we define the layout of the app
 '''
 ### we define variables for the figures
 
+### bar chart for county aganist no. cases
+values = []
+for i in sum_County:
+    values.append(i)
+
+pie_data = {'County': counties, 'Values': values}
+pie_df = pd.DataFrame(pie_data)
+bar0 = px.bar(pie_df,  x='County', y='Values')
+
+### bar chart
+
+bar = px.bar()
+### line chart
+line = px.line()
+
+
+
 ## geoplot fig variable
 """ 
 us_cities = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/us-cities-top-1k.csv")
@@ -214,7 +231,7 @@ app.layout = dbc.Container([
         dbc.Col([
             html.H4("Card title", className="card-title"),
             html.Div(
-                dcc.Graph(),className='card'
+                dcc.Graph(figure=bar0),className='card'
             )
         ],
         style={"width": "25rem"},
@@ -222,14 +239,14 @@ app.layout = dbc.Container([
         dbc.Col([
             html.H4("Card title", className="card-title"),
             html.Div(
-                dcc.Graph(),className='card'
+                dcc.Graph(figure=bar),className='card'
             )
         ]
         ),
         dbc.Col([
             html.H4("Card title", className="card-title"),
             html.Div(
-                dcc.Graph(),className='card'
+                dcc.Graph(figure=line),className='card'
             )
         ]
         )
