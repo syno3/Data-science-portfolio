@@ -92,15 +92,6 @@ Alameda_sum = sum_County[0] #alameda county sum county
 Alameda_Risk_Adjusted_Rate = sum_Risk_Adjusted_Rate[0]
 Alameda_No_of_Deaths_Readmissions = sum_No_of_Deaths_Readmissions[0]
 
-
-
-
-
-
-
-
-
-
 ''' 
 
 we define the layout of the app
@@ -115,15 +106,35 @@ for i in sum_County:
 
 pie_data = {'County': counties, 'Values': values}
 pie_df = pd.DataFrame(pie_data)
-bar0 = px.bar(pie_df,  x='County', y='Values')
+bar = px.bar(pie_df,  x='County', y='Values')
 
-### bar chart
+### pie chart for hospital ratings
+Value = []
+for x in Total_sum_Hospital_Ratings:
+    Value.append(x)
 
-bar = px.bar()
+bar_data = {'Ratings':Unique_Hospital_rating, 'Values':Value}
+bar_df = pd.DataFrame(bar_data)
+
+pie = px.pie(bar_df, values='Values', names='Ratings')
 ### line chart
-line = px.line()
+dataX = []
+dataY = []
+dataZ = []
+for a in sum_County:
+    dataX.append(a)
+for b in sum_No_of_Deaths_Readmissions:
+    dataY.append(b)
+for c in sum_Risk_Adjusted_Rate:
+    dataZ.append(c)
 
+scatter_data = {'Counties': counties, 'Totals': dataX, 'Deaths & Readmission': dataY, 'Risk adjusted rate': dataZ }
 
+scatter_df = pd.DataFrame(scatter_data)
+
+scatter = px.scatter(scatter_df, x="Risk adjusted rate", y="Deaths & Readmission",
+	         size="Totals", color="Counties",
+                 hover_name="Counties", log_x=True, size_max=30)
 
 ## geoplot fig variable
 """ 
@@ -231,7 +242,7 @@ app.layout = dbc.Container([
         dbc.Col([
             html.H4("Card title", className="card-title"),
             html.Div(
-                dcc.Graph(figure=bar0),className='card'
+                dcc.Graph(figure=bar),className='card'
             )
         ],
         style={"width": "25rem"},
@@ -239,14 +250,14 @@ app.layout = dbc.Container([
         dbc.Col([
             html.H4("Card title", className="card-title"),
             html.Div(
-                dcc.Graph(figure=bar),className='card'
+                dcc.Graph(figure=pie),className='card'
             )
         ]
         ),
         dbc.Col([
             html.H4("Card title", className="card-title"),
             html.Div(
-                dcc.Graph(figure=line),className='card'
+                dcc.Graph(figure=scatter),className='card'
             )
         ]
         )
