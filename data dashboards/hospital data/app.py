@@ -219,7 +219,7 @@ app.layout = dbc.Container([
     ## Graphs sections, line $ Bar $ scatter plot
     dbc.Row([
         dbc.Col([
-            html.H4("Card title", className="card-title"),
+            html.H4("Counties/total sum cases", className="card-title"),
             html.Div(
                 dcc.Graph(figure=bar),className='card'
             )
@@ -227,7 +227,7 @@ app.layout = dbc.Container([
         style={"width": "25rem"},
         ),
         dbc.Col([
-            html.H4("Card title", className="card-title"),
+            html.H4("Hospital ratings", className="card-title"),
             html.Div(
                 dcc.Graph(figure=pie),className='card'
             )
@@ -298,7 +298,8 @@ app.layout = dbc.Container([
     ### END OF RESULTS PER COUNTY
     ##FOOTER SECTION
     html.Div([
-        html.H6('MADE BY SYN03', className="header-title footer-text"),
+        html.H6('MADE BY SYN03 👨‍💻', className="footer-text"),
+        html.P('Built on dash', className='footer-span'),
     ], className="footer",
     ),
     ### END OF FOOTER SECTION
