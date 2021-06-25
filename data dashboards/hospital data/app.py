@@ -234,7 +234,7 @@ app.layout = dbc.Container([
         ]
         ),
         dbc.Col([
-            html.H4("Card title", className="card-title"),
+            html.H4("Total/risk adjusted/Deaths", className="card-title"),
             html.Div(
                 dcc.Graph(figure=scatter),className='card'
             )
