@@ -136,26 +136,6 @@ scatter = px.scatter(scatter_df, x="Risk adjusted rate", y="Deaths & Readmission
 	         size="Totals", color="Counties",
                  hover_name="Counties", log_x=True, size_max=30)
 
-## geoplot fig variable
-"""
-hospitals 
-counties
-lat
-lon
-sum_County 
-"""
-""" location = df['Location ']
-lat = []
-lon = []
-print(location[0]) """
-""" 
-geo = px.scatter_mapbox(us_cities, lat="lat", lon="lon", hover_name="City", hover_data=["State", "Population"],
-                        color_discrete_sequence=["fuchsia"], zoom=3, height=300)
-geo.update_layout(mapbox_style="open-street-map")
-geo.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-
-"""
-
 ### setting the layout for the app
 
 app.layout = dbc.Container([
@@ -316,17 +296,12 @@ app.layout = dbc.Container([
         ], style={"display": "flex"})
     ]),
     ### END OF RESULTS PER COUNTY
-    ##GEOPLOT SECTION
-    dbc.Row([
-        dbc.Col([
-            html.H4("Geoplot", className="card-title geoplot"),
-            html.Div(
-                dcc.Graph(),className='card'
-            )
-        ]
-        )
-    ])
-    ### END OF GEOPLOT SECTION
+    ##FOOTER SECTION
+    html.Div([
+        html.H6('MADE BY SYN03', className="header-title footer-text"),
+    ], className="footer",
+    ),
+    ### END OF FOOTER SECTION
 
 ],fluid=True)
 ### initialize callbacks
