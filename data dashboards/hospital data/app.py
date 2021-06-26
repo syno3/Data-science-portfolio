@@ -10,8 +10,6 @@ we will visualize the following data in an interactive dashboard:
 
 
 """
-
-
 try:
     #data analysis modules 
     import pandas as pd
@@ -32,7 +30,6 @@ except Exception as e:
 ##setiing the boostrap theme and adding the title
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX])
 app.title = "Hospital analytics: Ischaemic stroke data"
-
 
 ''' 
 we modify the data and deal with empty columns in dataframe and create a new csv file
@@ -55,7 +52,6 @@ empty = df.isnull().sum()
 ###creating new file with the data cleaned
 ##df.to_csv('new_hospital.csv')
 
-
 ''' 
 
 we define variables that will be used in the code:
@@ -67,7 +63,6 @@ we define variables that will be used in the code:
 6. group by counties and get number of cases in each
 7. Calculate hospital rating and get values
 8.
-
 
 '''
 ### defining variables in figure to used
@@ -234,7 +229,7 @@ app.layout = dbc.Container([
         ]
         ),
         dbc.Col([
-            html.H4("Total/risk adjusted/Deaths", className="card-title"),
+            html.H4("Total/risk adjusted/Death", className="card-title"),
             html.Div(
                 dcc.Graph(figure=scatter),className='card'
             )
