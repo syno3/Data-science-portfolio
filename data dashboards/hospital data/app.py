@@ -239,13 +239,31 @@ app.layout = dbc.Container([
     ## RESULTS PER COUNTY
     dbc.Row([
         html.H4("Cases per county", className="header-title title-text2"),
+        ###START DROPDWON SECTION
+        dbc.Col(
+            html.Div(
+                dcc.Dropdown(
+                    id="counties-dropdown",
+                    options=[
+                        {"label": Counties, "value": Counties}
+                        for Counties in counties
+                    ],
+                    value="Alameda",
+                    clearable=False,
+                    searchable=False,
+                    className="dropdown",
+                    placeholder="Select a city",
+                ),
+            )
+        ),
+        ###END OF DROPDOWN SECTION
         html.Div([
             dbc.Col(
                 dbc.Card(
                     [
                         dbc.CardBody(
                             [
-                                html.H4("Alameda Total Cases", className="card-title title-text"),
+                                html.H4("{} Total Cases".format(value), className="card-title title-text"),
                                 html.Hr(),
                                 html.P( '{}'.format(Alameda_sum), 
                                     className="card-text number-text",
@@ -261,7 +279,7 @@ app.layout = dbc.Container([
                     [
                         dbc.CardBody(
                             [
-                                html.H4("Alameda Risk Ajusted Rate", className="card-title title-text"),
+                                html.H4("{} Risk Ajusted Rate".format(value), className="card-title title-text"),
                                 html.Hr(),
                                 html.P('{} '.format(Alameda_Risk_Adjusted_Rate),
                                     className="card-text number-text",
@@ -277,7 +295,7 @@ app.layout = dbc.Container([
                     [
                         dbc.CardBody(
                             [
-                                html.H4("Alameda Deaths & Readmission", className="card-title title-text"),
+                                html.H4("{} Deaths & Readmission".format(value), className="card-title title-text"),
                                 html.Hr(),
                                 html.P('{}'.format(Alameda_No_of_Deaths_Readmissions),
                                     className="card-text number-text",
@@ -300,11 +318,16 @@ app.layout = dbc.Container([
     ### END OF FOOTER SECTION
 
 ],fluid=True)
-### initialize callbacks
 
+@app.callback(
+    [Output("price-chart", "figure"), Output("volume-chart", "figure")],
+    [
+        Input("counties-dropdown", "value"),
+    ],
+)
 
-
-
+def updated_dropdown(value):
+    pass
 
 ###initialize the app
 if __name__ == '__main__':

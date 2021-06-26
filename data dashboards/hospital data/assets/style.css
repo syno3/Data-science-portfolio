@@ -82,4 +82,13 @@
     font-size: 1rem;
 
 }
+.dropdown{
+    display: flex;
+    width: 4rem;
+    margin-right: 4rem;
+}
+.top-text{
+    display: flex;
+    align-items: center;
+}
 
