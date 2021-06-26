@@ -10,6 +10,9 @@ we will visualize the following data in an interactive dashboard:
 
 
 """
+from plotly.basedatatypes import _indexing_combinations
+
+
 try:
     #data analysis modules 
     import pandas as pd
@@ -251,7 +254,7 @@ app.layout = dbc.Container([
                     value="Alameda",
                     clearable=False,
                     searchable=False,
-                    className="dropdown",
+                    className="dropdown dropright",
                     placeholder="Select a city",
                 ),
             )
@@ -262,13 +265,7 @@ app.layout = dbc.Container([
                 dbc.Card(
                     [
                         dbc.CardBody(
-                            [
-                                html.H4("{} Total Cases".format(value), className="card-title title-text"),
-                                html.Hr(),
-                                html.P( '{}'.format(Alameda_sum), 
-                                    className="card-text number-text",
-                                ),
-                            ]
+                            html.Div(id='dd-output-container')
                         )
                     ],
                     style={"width": "25rem"},
@@ -279,7 +276,7 @@ app.layout = dbc.Container([
                     [
                         dbc.CardBody(
                             [
-                                html.H4("{} Risk Ajusted Rate".format(value), className="card-title title-text"),
+                                html.H4(id='dd-output-container1', className="card-title title-text"),
                                 html.Hr(),
                                 html.P('{} '.format(Alameda_Risk_Adjusted_Rate),
                                     className="card-text number-text",
@@ -295,7 +292,7 @@ app.layout = dbc.Container([
                     [
                         dbc.CardBody(
                             [
-                                html.H4("{} Deaths & Readmission".format(value), className="card-title title-text"),
+                                html.H4(id='dd-output-container2', className="card-title title-text"),
                                 html.Hr(),
                                 html.P('{}'.format(Alameda_No_of_Deaths_Readmissions),
                                     className="card-text number-text",
@@ -320,14 +317,16 @@ app.layout = dbc.Container([
 ],fluid=True)
 
 @app.callback(
-    [Output("price-chart", "figure"), Output("volume-chart", "figure")],
-    [
-        Input("counties-dropdown", "value"),
-    ],
-)
+    dash.dependencies.Output('dd-output-container', 'children'),
+    [dash.dependencies.Input('counties-dropdown', 'value')])
+
 
 def updated_dropdown(value):
-    pass
+
+    county_sum = sum_County[value]
+    content = 'the county is {} and the cases are {}'.format(value, county_sum)
+    return content
+    
 
 ###initialize the app
 if __name__ == '__main__':
