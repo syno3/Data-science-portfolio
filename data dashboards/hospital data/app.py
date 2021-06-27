@@ -241,7 +241,6 @@ app.layout = dbc.Container([
     ]),
     ## RESULTS PER COUNTY
     dbc.Row([
-        html.H4("Cases per county", className="header-title title-text2"),
         ###START DROPDWON SECTION
         dbc.Col(
             html.Div(
@@ -254,54 +253,22 @@ app.layout = dbc.Container([
                     value="Alameda",
                     clearable=False,
                     searchable=False,
-                    className="dropdown dropright",
-                    placeholder="Select a city",
-                ),
+                ),className='card'
             )
         ),
+    ]),
+    dbc.Row([
+        html.H4("Cases per county", className="header-title title-text2"),
         ###END OF DROPDOWN SECTION
         html.Div([
             dbc.Col(
-                dbc.Card(
-                    [
-                        dbc.CardBody(
-                            html.Div(id='dd-output-container')
-                        )
-                    ],
-                    style={"width": "25rem"},
-                ),className="mb-4"
+            html.Div(id='dd-output-container'),
             ),
             dbc.Col(
-                dbc.Card(
-                    [
-                        dbc.CardBody(
-                            [
-                                html.H4(id='dd-output-container1', className="card-title title-text"),
-                                html.Hr(),
-                                html.P('{} '.format(Alameda_Risk_Adjusted_Rate),
-                                    className="card-text number-text",
-                                ),
-                            ]
-                        ),
-                    ],
-                    style={"width": "25rem"},
-                )
+                html.Div(id='dd-output-container1'),
             ),
             dbc.Col(
-                dbc.Card(
-                    [
-                        dbc.CardBody(
-                            [
-                                html.H4(id='dd-output-container2', className="card-title title-text"),
-                                html.Hr(),
-                                html.P('{}'.format(Alameda_No_of_Deaths_Readmissions),
-                                    className="card-text number-text",
-                                ),
-                            ]
-                        ),
-                    ],
-                    style={"width": "28rem"},
-                )
+                html.Div(id='dd-output-container2')
             ),
         ], style={"display": "flex"})
     ]),
@@ -315,18 +282,76 @@ app.layout = dbc.Container([
     ### END OF FOOTER SECTION
 
 ],fluid=True)
+## intialize the dropdown callbacks
 
 @app.callback(
     dash.dependencies.Output('dd-output-container', 'children'),
     [dash.dependencies.Input('counties-dropdown', 'value')])
 
-
+## defining the interaction, will add more content later
 def updated_dropdown(value):
 
     county_sum = sum_County[value]
-    content = 'the county is {} and the cases are {}'.format(value, county_sum)
-    return content
-    
+    return dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                html.H4('{} Total cases'.format(value), className="card-title title-text"),
+                                html.Hr(),
+                                html.P('{} '.format(county_sum),
+                                    className="card-text number-text",
+                                ),
+                            ]
+                        ),
+                    ],
+                    style={"width": "25rem"},
+                )
+
+@app.callback(
+    dash.dependencies.Output('dd-output-container1', 'children'),
+    [dash.dependencies.Input('counties-dropdown', 'value')])
+
+## defining the interaction, will add more content later
+def updated_dropdown1(value):
+
+    risk_sum = sum_Risk_Adjusted_Rate[value]
+    return dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                html.H4('{} Risk adjusted rate'.format(value), className="card-title title-text"),
+                                html.Hr(),
+                                html.P('{} '.format(risk_sum),
+                                    className="card-text number-text",
+                                ),
+                            ]
+                        ),
+                    ],
+                    style={"width": "25rem"},
+                )
+
+@app.callback(
+    dash.dependencies.Output('dd-output-container2', 'children'),
+    [dash.dependencies.Input('counties-dropdown', 'value')])
+
+## defining the interaction, will add more content later
+def updated_dropdown2(value):
+
+    sum_deaths = sum_No_of_Deaths_Readmissions[value]
+    return dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                html.H4('{} Deaths & Readmission'.format(value), className="card-title title-text"),
+                                html.Hr(),
+                                html.P('{} '.format(sum_deaths),
+                                    className="card-text number-text",
+                                ),
+                            ]
+                        ),
+                    ],
+                    style={"width": "25rem"},
+                )
 
 ###initialize the app
 if __name__ == '__main__':
