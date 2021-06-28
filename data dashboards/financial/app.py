@@ -100,10 +100,11 @@ content = html.Div([
             ),
         ])
     ]),
-    dbc.Row([
+
+ """    dbc.Row([
         ],id='dd-output-container'),
     dbc.Row([
-        ],id='dd-output-container1')
+        ],id='dd-output-container1') """
 
 ],style=CONTENT_STYLE)
 
@@ -111,31 +112,15 @@ app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 
 
 ## we intialize app layout
-@app.callback(
+""" @app.callback(
     dash.dependencies.Output('dd-output-container', 'children'),
     [dash.dependencies.Input('ticker-dropdown', 'value')])
 
 def update_graph(value):
     df = web.DataReader('{}'.format(value), data_source='yahoo', start='01-01-2020')
-    
-    fig = go.Figure(data=go.Ohlc(x=df['Date'],
-                    open=df['Open'],
-                    high=df['High'],
-                    low=df['Low'],
-                    close=df['Close']))
-    fig.show()
+    pass
 
-    return dbc.Card(
-                [
-                    dbc.CardBody(
-                        [
-                            dcc.Graph(figure=fig)
-                        ]
-                    ),
-                ], className='card'
-            )
-
-
+"""
 ### WE INITIALIZE THE APP
 if __name__ == '__main__':
     app.run_server(debug=True)
