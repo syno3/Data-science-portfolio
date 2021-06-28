@@ -7,6 +7,9 @@ we visualize live stock market data and also get live news
 
 """
 #### IMPORTING REQUIRED MODULES
+from dash_bootstrap_components.themes import YETI
+
+
 try:
     #data analysis modules 
     import pandas as pd
@@ -20,8 +23,9 @@ try:
     import plotly.graph_objs as go
     #plotly modules
     import plotly.express as px 
-    #some other libraries that will be used 
-
+    #some other libraries that will be used
+    from yahoo_fin.stock_info import * 
+    from pandas_datareader import data as web
 
 except Exception as e:
     print(e)
@@ -32,8 +36,10 @@ except Exception as e:
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
 app.title = "Live market: S&P live market data"
 
+### TICKER SYMBOLS TO CSV FILE
+ticker = tickers_nasdaq()
 
-
+#df.rename(columns={'oldName1': 'newName1', 'oldName2': 'newName2'}, inplace=True)
 
 SIDEBAR_STYLE = {
     "position": "fixed",
@@ -42,7 +48,7 @@ SIDEBAR_STYLE = {
     "bottom": 0,
     "width": "16rem",
     "padding": "2rem 1rem",
-    "border-right": "1px solid white"
+    "background-color":"#22252B",
 }
 
 # the styles for the main content position it to the right of the sidebar and
@@ -65,7 +71,6 @@ sidebar = html.Div(
                 [
                     dbc.CardBody(
                         [
-
                         ]
                     ),
                 ], className='sidebar-card'
@@ -77,29 +82,58 @@ sidebar = html.Div(
 
 content = html.Div([
     dbc.Row([
-        dbc.Card(
+        dbc.Col([
+            html.H4('Live market data', className='top-title-text'),
+        ]),
+        dbc.Col([
+        html.Div(
+            dcc.Dropdown(
+                id="ticker-dropdown",
+                options=[
+                    {"label": Ticker, "value": Ticker}
+                    for Ticker in ticker
+                ],
+                value="AACG",
+                clearable=False,
+                searchable=False,
+                ),className='dropdown'
+            ),
+        ])
+    ]),
+    dbc.Row([
+        ],id='dd-output-container'),
+    dbc.Row([
+        ],id='dd-output-container1')
+
+],style=CONTENT_STYLE)
+
+app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
+
+
+## we intialize app layout
+@app.callback(
+    dash.dependencies.Output('dd-output-container', 'children'),
+    [dash.dependencies.Input('ticker-dropdown', 'value')])
+
+def update_graph(value):
+    df = web.DataReader('{}'.format(value), data_source='yahoo', start='01-01-2020')
+    
+    fig = go.Figure(data=go.Ohlc(x=df['Date'],
+                    open=df['Open'],
+                    high=df['High'],
+                    low=df['Low'],
+                    close=df['Close']))
+    fig.show()
+
+    return dbc.Card(
                 [
                     dbc.CardBody(
                         [
-
+                            dcc.Graph(figure=fig)
                         ]
                     ),
                 ], className='card'
             )
-        ]),
-    dbc.Row([
-        dbc.Card(
-                [
-                    dbc.CardBody(
-                        [
-                        ]
-                    ),
-                ],className='card'
-            )
-        ]),
-],style=CONTENT_STYLE)
-
-app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 
 
 ### WE INITIALIZE THE APP
