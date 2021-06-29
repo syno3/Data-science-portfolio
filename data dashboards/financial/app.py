@@ -100,12 +100,7 @@ content = html.Div([
             ),
         ])
     ]),
-
- """    dbc.Row([
-        ],id='dd-output-container'),
-    dbc.Row([
-        ],id='dd-output-container1') """
-
+    
 ],style=CONTENT_STYLE)
 
 app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
