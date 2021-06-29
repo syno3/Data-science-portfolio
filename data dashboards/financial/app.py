@@ -14,6 +14,7 @@ try:
     #data analysis modules 
     import pandas as pd
     import numpy as np
+
     #dash modules
     import dash
     import dash_core_components as dcc
@@ -21,15 +22,17 @@ try:
     import dash_bootstrap_components as dbc
     from dash.dependencies import Output, Input
     import plotly.graph_objs as go
+
     #plotly modules
     import plotly.express as px 
+
     #some other libraries that will be used
     from yahoo_fin.stock_info import * 
     from pandas_datareader import data as web
+    import yfinance as yf
 
 except Exception as e:
     print(e)
-
 
 
 ##SETTING THE BOOSTRAP THEME AND TITLE OF WEBSITE
@@ -98,24 +101,35 @@ content = html.Div([
                 searchable=False,
                 ),className='dropdown'
             ),
-        ])
+        ]),
     ]),
-    
+    dbc.Row(
+            html.Div(id='dd-output-container'),
+        ),
 ],style=CONTENT_STYLE)
 
 app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 
 
 ## we intialize app layout
-""" @app.callback(
+@app.callback(
     dash.dependencies.Output('dd-output-container', 'children'),
     [dash.dependencies.Input('ticker-dropdown', 'value')])
 
 def update_graph(value):
-    df = web.DataReader('{}'.format(value), data_source='yahoo', start='01-01-2020')
-    pass
+    ###data = yf.download(tickers='{}'.format(value), period='1d', interval='1m')
+    return dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                dcc.Graph()
+                            ]
+                        ),
+                    ],
+                    style={"width": "63rem", "height": "31rem"},
+                )
 
-"""
+
 ### WE INITIALIZE THE APP
 if __name__ == '__main__':
     app.run_server(debug=True)
