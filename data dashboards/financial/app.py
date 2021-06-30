@@ -117,12 +117,24 @@ app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
     [dash.dependencies.Input('ticker-dropdown', 'value')])
 
 def update_graph(value):
-    ###data = yf.download(tickers='{}'.format(value), period='1d', interval='1m')
+    data = yf.download(tickers='{}'.format(value), period='1d', interval='1m')
+
+    hovertext=[]
+    for i in range(len(data['Open'])):
+        hovertext.append('Open: '+str(data['Open'][i])+'<br>Close: '+str(data['Close'][i]))
+
+    fig = go.Figure(data=go.Ohlc(x=data.index,
+                    open=data['Open'],
+                    high=data['High'],
+                    low=data['Low'],
+                    close=data['Close']))
+    fig.update(layout_xaxis_rangeslider_visible=False)
+
     return dbc.Card(
                     [
                         dbc.CardBody(
                             [
-                                dcc.Graph()
+                                dcc.Graph(figure=fig)
                             ]
                         ),
                     ],
