@@ -1,0 +1,100 @@
+theme = {
+   "accent":"9FAD3E",
+   "accent_negative":"D0704b",
+   "accent_positive":"#017500",
+   "background_content":"#FFFFFF",
+   "background_page":"white",
+   "border":"#e2e2e2",
+   "breakpoint_font":"1200px",
+   "breakpoint_stack_blocks":"700px",
+   "card_border":{
+       "width":"0px 0px 0px 0px",
+       "style":"solid",
+       "color":"#e2e2e2",
+       "radius":"0px"
+   },
+   "card_background_color":"#FFFFFF",
+   "card_box_shadow":"0px 1px 3px rgba(0,0,0,0.12), 0px 1px 2px rgba(0,0,0,0.24)",
+   "card_margin":"15px",
+   "card_padding":"5px",
+   "card_outline":{
+       "width":"0px",
+       "style":"solid",
+       "color":"#e2e2e2"
+   },
+   "card_header_border":{
+       "width":"0px 0px 1px 0px",
+       "style":"solid",
+       "color":"#e2e2e2",
+       "radius":"0px"
+   },
+   "card_header_background_color":"#FFFFFF",
+   "card_header_box_shadow":"0px 0px 0px rgba(0,0,0,0)",
+   "card_header_margin":"0px",
+   "card_header_padding":"10px",
+   "colorway":[
+       "#9fad3e",
+       "#6e6eaf",
+       "#5d737d",
+       "#707274",
+       "#A9624F",
+       "#D0704B",
+       "#a5282c",
+       "#e6c7c2"
+   ],
+   "colorscale":[
+       "#9fad3e",
+       "#abb655",
+       "#b6bf6a",
+       "#c1c87f",
+       "#ccd194",
+       "#d7daa9",
+       "#e1e3be",
+       "#ebecd4",
+       "#f5f6e9",
+       "#ffffff"
+   ],
+   "font_family":"Open Sans",
+   "font_size":"17px",
+   "font_size_smaller_screen":"15px",
+   "font_family_header":"Dosis",
+   "font_size_header":"24px",
+   "font_family_headings":"Dosis",
+   "font_headings_size":None,
+   "header_border":{
+       "width":"0px 0px 0px 0px",
+       "style":"solid",
+       "color":"#e2e2e2",
+       "radius":"0px"
+   },
+   "header_background_color":"#FFFFFF",
+   "header_box_shadow":"0px 1px 3px rgba(0,0,0,0.12), 0px 1px 2px rgba(0,0,0,0.24)",
+   "header_margin":"0px 0px 15px 0px",
+   "header_padding":"0px",
+   "text":"#606060",
+   "report_font_family":"Open Sans",
+   "report_font_size":"12px",
+   "report_background_page":"white",
+   "report_background_content":"white",
+   "report_text":"black"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+dk.App(..., theme=theme)'.

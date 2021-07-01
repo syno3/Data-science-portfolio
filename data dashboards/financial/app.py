@@ -69,16 +69,6 @@ sidebar = html.Div(
         html.P(
             "We visualize live market data with dash", className="lead"
         ),
-        ### CARD SECTION
-        dbc.Card(
-                [
-                    dbc.CardBody(
-                        [
-                        ]
-                    ),
-                ], className='sidebar-card'
-            )
-            ### END OF CARD SEECTION
     ],
     style=SIDEBAR_STYLE,
 )
@@ -108,7 +98,7 @@ content = html.Div([
         ),
 ],style=CONTENT_STYLE)
 
-app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
+app.layout = html.Div([sidebar, content])
 
 
 ## we intialize app layout
