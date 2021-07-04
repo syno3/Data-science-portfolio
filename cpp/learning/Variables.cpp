@@ -9,6 +9,8 @@
 // we learn about RETURN
 // we learn about IF STATEMENTS
 // we learn about COMPARISONS
+// we learb about SWITCH
+
 
 
 // beginner tutorial
@@ -19,7 +21,24 @@
 
 using namespace std;
 
-int getMax(int num1, int num2){
+
+string getDayOfWeek(int dayNum){
+    string dayName;
+    switch (dayNum)
+    {
+    case 0:
+        dayName = "monday";
+        break;
+    
+    default:
+        break;
+    }
+
+
+}
+
+
+/* int getMax(int num1, int num2){
     int result;
 
     if (num1 > num2){
@@ -28,11 +47,10 @@ int getMax(int num1, int num2){
     else{
         result = num2;
     }
-
     return result;
 
 }
-
+ */
 
 int main(){
 /*     string CharacterName = "John";
@@ -140,10 +158,10 @@ int main(){
 
 
 
-
-    cout<< getMax(2,5);
+    cout<< getDayOfWeek(3);
     return 0;
 
 }
+
 
 
